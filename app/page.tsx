@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { Instagram, Linkedin, X, Youtube, ChevronDown, Sun, Moon } from "lucide-react";
+import { Instagram, Linkedin, X, Youtube, ChevronDown, Sun, Moon, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 import Hero3DModel from "@/components/Hero3DModel";
 // Basit fade-in animasyonu için bir custom hook
@@ -48,9 +48,12 @@ import ThemeToggle from "@/components/ThemeToggle";
 
 // ------ Navbar (Güncellenmiş) ------
 function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <nav className="sticky top-0 z-30 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 transition-colors">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
+    <>
+      <nav className="sticky top-0 z-30 w-full bg-white/90 dark:bg-slate-900/90 backdrop-blur border-b border-slate-100 dark:border-slate-800 transition-colors">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-2">
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 font-semibold text-blue-600 dark:text-blue-400 text-xl">
           <Image
@@ -80,20 +83,7 @@ function Navbar() {
           ))}
         </div>
 
-        {/* Links (Mobile) */}
-        <div className="flex md:hidden gap-4 items-center overflow-x-auto ml-4">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm text-slate-800 dark:text-slate-200 whitespace-nowrap px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900/40"
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        {/* Socials & Theme Toggle */}
+        {/* Socials, Theme Toggle & Mobile Menu */}
         <div className="flex gap-4 items-center ml-4">
           <div className="hidden sm:flex gap-4 border-r border-slate-200 dark:border-slate-700 pr-4">
             {SOCIALS.map(({ icon: Icon, href, label }) => (
@@ -106,11 +96,56 @@ function Navbar() {
               </a>
             ))}
           </div>
-          {/* İŞTE O EKSİK BUTON BURADA! */}
           <ThemeToggle />
+
+          {/* Mobile Hamburger */}
+          <button
+            type="button"
+            className="flex md:hidden items-center justify-center w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/40"
+            aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menüyü Aç"}
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          >
+            {isMobileMenuOpen ? (
+              <span className="text-xl leading-none">&times;</span>
+            ) : (
+              <Menu size={22} />
+            )}
+          </button>
         </div>
       </div>
     </nav>
+
+      {/* Mobile Overlay Menu */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm md:hidden">
+          <div className="ml-auto h-full w-64 max-w-[80%] bg-white dark:bg-slate-900 shadow-xl p-6 flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <span className="font-semibold text-slate-800 dark:text-slate-100">Menü</span>
+              <button
+                type="button"
+                className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
+                aria-label="Menüyü Kapat"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span className="text-lg leading-none">&times;</span>
+              </button>
+            </div>
+            <nav className="flex flex-col gap-3">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-base font-medium text-slate-800 dark:text-slate-200 px-2 py-2 rounded hover:bg-blue-50 dark:hover:bg-blue-900/40"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
