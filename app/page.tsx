@@ -549,12 +549,12 @@ function Team() {
               </button>
               {/* Accordion Content (collapsible) */}
               <div
-                className="overflow-hidden transition-all duration-400 ease-in-out"
-                style={{
-                  maxHeight: isOpen ? `${Math.min(dep.members.length * 90, 400)}px` : "0",
-                  opacity: isOpen ? 1 : 0,
-                  pointerEvents: isOpen ? "auto" : "none",
-                }}
+                className={clsx(
+                  "transition-all duration-400 ease-in-out",
+                  isOpen
+                    ? "max-h-[60vh] overflow-y-auto overscroll-contain"
+                    : "max-h-0 overflow-hidden"
+                )}
                 aria-hidden={!isOpen}
               >
                 <div className="px-6 pb-6 pt-2">
