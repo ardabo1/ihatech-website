@@ -64,7 +64,7 @@ function Navbar() {
           İHATECH
         </a>
 
-        {/* Links */}
+        {/* Links (Desktop) */}
         <div className="hidden md:flex gap-8 items-center">
           {NAV_LINKS.map((link) => (
             <a
@@ -74,6 +74,19 @@ function Navbar() {
                 "text-slate-800 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-300 transition-colors font-medium",
                 "hover:bg-blue-50 dark:hover:bg-blue-900/40 dark:hover:shadow-[0_0_15px_rgba(37,99,235,0.4)] rounded px-2 py-1"
               )}
+            >
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        {/* Links (Mobile) */}
+        <div className="flex md:hidden gap-4 items-center overflow-x-auto ml-4">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-sm text-slate-800 dark:text-slate-200 whitespace-nowrap px-2 py-1 rounded hover:bg-blue-50 dark:hover:bg-blue-900/40"
             >
               {link.name}
             </a>
