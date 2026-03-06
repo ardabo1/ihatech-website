@@ -49,6 +49,18 @@ import ThemeToggle from "@/components/ThemeToggle";
 // ------ Navbar (Güncellenmiş) ------
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [logoFlipped, setLogoFlipped] = useState(false);
+
+  useEffect(() => {
+    if (!resolvedTheme) return;
+    setLogoFlipped(true);
+    const timeout = setTimeout(() => setLogoFlipped(false), 500);
+    return () => clearTimeout(timeout);
+  }, [resolvedTheme]);
+
+  const isDarkTheme = resolvedTheme === "dark";
+  const logoSrc = isDarkTheme ? "/ihatech-logo1.png" : "/ihatech-logo.png";
 
   return (
     <>
@@ -57,11 +69,14 @@ function Navbar() {
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 font-semibold text-blue-600 dark:text-blue-400 text-xl">
           <Image
-            src="/ihatech-logo.png"
+            src={logoSrc}
             alt="IHATECH Logo"
             width={96}
             height={96}
-            className="w-24 h-auto border-2 border-blue-600 rounded-full bg-white p-1 dark:bg-slate-900"
+            className="w-24 h-auto border-2 border-blue-600 rounded-full bg-white p-1 dark:bg-slate-900 transform-gpu transition-transform duration-500"
+            style={{
+              transform: logoFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+            }}
             priority
           />
           İHATECH
@@ -190,7 +205,7 @@ function Hero() {
       className="max-w-7xl mx-auto pt-16 pb-24 flex flex-col md:flex-row items-center gap-12 px-6 opacity-0 translate-y-8 transition-all duration-1000">
       
       {/* 3D Model Şov Alanı */}
-      <div className="mx-auto md:mx-0 flex-1 md:flex-[3] w-full flex items-center justify-center">
+      <div className="mx-auto md:mx-0 flex-1 md:flex-[3] w-full flex items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/40 dark:bg-slate-900/40">
         {/* Daha önce oluşturduğumuz tel kafes İHA simülasyonunu buraya çağırıyoruz */}
         <Hero3DModel />
       </div>
