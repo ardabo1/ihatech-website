@@ -446,7 +446,8 @@ const TEAM = [
       { name: "Erdem Anıl Özbakan", role: "Mekanik Kaptanı" },
       { name: "Tuna Kerem Ülker", role: "Mekanik Üyesi" },
       { name: "Hüseyin Duman", role: "Sponsorluk Sorumlusu" },
-      { name: "İbrahim Gürkan", role: "Elektronik Kaptanı" }
+      { name: "İbrahim Gürkan", role: "Elektronik Kaptanı" },
+      { name: "Çınar Aslan", role:"Sosyal Medya Sorumlusu"}
     ]
   },
   {
@@ -467,7 +468,7 @@ const TEAM = [
   {
     title: "Mekanik",
     members: [
-      { name: "Talha Taşçı", role: "" },
+      { name: "Talha Taşcı", role: "" },
       { name: "Mert Kayalar", role: "" },
       { name: "Alperen Şen", role: "" },
       { name: "Emre Altun", role: "" },
@@ -494,6 +495,15 @@ const TEAM = [
       { name: "Seydi Kıvanç Karaağaç", role: "" },
       { name: "Neslihan Baltacı", role: "" },
       { name: "Emir Günyol", role: "" },
+    ]
+  },
+  {
+    title: "Sosyal Medya",
+    members: [
+      { name: "Gülce Su Yardımcı", role: "" },
+      { name: "Öykü Sezer", role: "" },
+      { name: "Asım Cevdet Dukan", role: "" },
+      { name: "Beray Nur Yıldırım", role: "" },
     ]
   }
 ];
