@@ -520,7 +520,6 @@ const TEAM = [
       { name: "Mert Tavzer", role: "" },
       { name: "Halil İbrahim Yesirci", role: "" },
       { name: "Umut Anıl Altun", role: "" },
-      { name: "İsmail Kanal", role: "" },
       { name: "Ada Boran Sipahi", role: "" },
       { name: "Malik Deniz", role: "" },
       { name: "Kaan Şahal", role: "" },
