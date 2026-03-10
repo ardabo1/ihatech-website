@@ -59,7 +59,8 @@ function Navbar() {
     return () => clearTimeout(timeout);
   }, [resolvedTheme]);
 
-  const isDarkTheme = resolvedTheme === "dark";
+  // Eğer tema henüz çözülmediyse (ilk yükleme), logoyu koyu versiyonla başlat.
+  const isDarkTheme = resolvedTheme === "dark" || !resolvedTheme;
   const logoSrc = isDarkTheme ? "/ihatech-logo1.png" : "/ihatech-logo.png";
 
   return (
@@ -522,7 +523,6 @@ const TEAM = [
       { name: "İsmail Kanal", role: "" },
       { name: "Ada Boran Sipahi", role: "" },
       { name: "Malik Deniz", role: "" },
-      { name: "Yusuf Karabiber", role: "" },
       { name: "Kaan Şahal", role: "" },
       { name: "Tevfik Kesmez", role: "" },
       { name: "Arkadaş Ilgaz Kaygusuz", role: "" }
