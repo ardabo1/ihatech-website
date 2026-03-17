@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import clsx from "clsx";
 import { Instagram, Linkedin, X, Youtube, ChevronDown, Sun, Moon, Menu } from "lucide-react";
 import { useTheme } from "next-themes";
-import Hero3DModel from "@/components/Hero3DModel";
+const Hero3DModel = dynamic(() => import("@/components/Hero3DModel"), { ssr: false });
 // Basit fade-in animasyonu için bir custom hook
 const useFadeInOnScroll = () => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -50,17 +51,15 @@ import ThemeToggle from "@/components/ThemeToggle";
 function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { resolvedTheme } = useTheme();
-  const [logoFlipped, setLogoFlipped] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    if (!resolvedTheme) return;
-    setLogoFlipped(true);
-    const timeout = setTimeout(() => setLogoFlipped(false), 500);
-    return () => clearTimeout(timeout);
-  }, [resolvedTheme]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
-  // Eğer tema henüz çözülmediyse (ilk yükleme), logoyu koyu versiyonla başlat.
-  const isDarkTheme = resolvedTheme === "dark" || !resolvedTheme;
+  // Theme değerlerini sadece client mount olduktan sonra kullan (hydration mismatch önleme)
+  const isDarkTheme = mounted ? resolvedTheme === "dark" : true;
   const logoSrc = isDarkTheme ? "/ihatech-logo1.png" : "/ihatech-logo.png";
 
   return (
@@ -70,14 +69,15 @@ function Navbar() {
         {/* Logo */}
         <a href="#hero" className="flex items-center gap-2 font-semibold text-blue-600 dark:text-blue-400 text-xl">
           <Image
+            key={mounted ? logoSrc : "logo-placeholder"}
             src={logoSrc}
             alt="IHATECH Logo"
             width={96}
             height={96}
-            className="w-24 h-auto border-2 border-blue-600 rounded-full bg-white p-1 dark:bg-slate-900 transform-gpu transition-transform duration-500"
-            style={{
-              transform: logoFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-            }}
+            className={clsx(
+              "w-24 h-auto border-2 border-blue-600 rounded-full bg-white p-1 dark:bg-slate-900 transform-gpu transition-opacity duration-300",
+              mounted ? "opacity-100 logo-flip-y" : "opacity-0"
+            )}
             priority
           />
           İHATECH
@@ -201,15 +201,26 @@ export default function Home() {
 // ------ Hero Section ------
 function Hero() {
   const sectionRef = useFadeInOnScroll();
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
   return (
     <section id="hero" ref={sectionRef}
       className="max-w-7xl mx-auto pt-16 pb-24 flex flex-col md:flex-row items-center gap-12 px-6 opacity-0 translate-y-8 transition-all duration-1000">
       
-      {/* 3D Model Şov Alanı */}
-      <div className="mx-auto md:mx-0 flex-1 md:flex-[3] w-full flex items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/40 dark:bg-slate-900/40">
-        {/* Daha önce oluşturduğumuz tel kafes İHA simülasyonunu buraya çağırıyoruz */}
-        <Hero3DModel />
-      </div>
+      {/* 3D Model Şov Alanı (Mobilde render edilmez) */}
+      {isDesktop && (
+        <div className="mx-auto md:mx-0 flex-1 md:flex-[3] w-full flex items-center justify-center rounded-2xl border border-slate-200 dark:border-slate-700 bg-white/40 dark:bg-slate-900/40">
+          <Hero3DModel />
+        </div>
+      )}
 
       {/* Content */}
       <div className="flex-1 md:flex-[2] flex flex-col items-start justify-center">
