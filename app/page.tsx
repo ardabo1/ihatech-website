@@ -740,7 +740,7 @@ function SponsorshipPackages() {
 }
 
 const SPONSORS = [
-  { name: "KESİAD", logo: "/sponsors/kesiad.png" },
+  { name: "Tirsan", logo: "/sponsors/tirsan_logo.png" },
   { name: "Teknopark İzmir", logo: "/sponsors/teknopark-izmir.png" },
   { name: "İYTE Rektörlük", logo: "/sponsors/iyte-rektörlük.png" },
   { name: "Adem Kul", logo: "" } // Logosu olmayanlara boş bırakıyoruz
