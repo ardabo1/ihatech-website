@@ -531,17 +531,15 @@ const TEAM = [
       { name: "Mert Tavzer", role: "" },
       { name: "Halil İbrahim Yesirci", role: "" },
       { name: "Umut Anıl Altun", role: "" },
-      { name: "Ada Boran Sipahi", role: "" },
+      { name: "Barkın Durgut", role: "" },
       { name: "Malik Deniz", role: "" },
       { name: "Kaan Şahal", role: "" },
       { name: "Tevfik Kesmez", role: "" },
-      { name: "Arkadaş Ilgaz Kaygusuz", role: "" }
     ]
   },
   {
     title: "Mekanik",
     members: [
-      { name: "Talha Taşcı", role: "" },
       { name: "Mert Kayalar", role: "" },
       { name: "Alperen Şen", role: "" },
       { name: "Emre Altun", role: "" },
@@ -553,11 +551,9 @@ const TEAM = [
     title: "Elektronik",
     members: [
       { name: "Aleyna Mahmutoğlu", role: "" },
-      { name: "Aslı Soytürk", role: "" },
       { name: "Eren Güler", role: "" },
       { name: "Samet Topallı", role: "" },
       { name: "Umut Anıl Altun", role: "" },
-      { name: "Şinasi Eren Kocakanat", role: "" },
     ]
   },
   {
@@ -576,7 +572,6 @@ const TEAM = [
       { name: "Gülce Su Yardımcı", role: "" },
       { name: "Öykü Sezer", role: "" },
       { name: "Asım Cevdet Dukan", role: "" },
-      { name: "Beray Nur Yıldırım", role: "" },
     ]
   }
 ];
